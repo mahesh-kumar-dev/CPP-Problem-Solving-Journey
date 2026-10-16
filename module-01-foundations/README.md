@@ -216,11 +216,7 @@ These problems build core problem-decomposition strategies. Every solution must 
 Software verification demands validating boundaries where calculations are most susceptible to breaking. For standard structural math and syntax validation routines, test inputs are categorized into three main tiers:
 
 ### 🎯 Test Matrix Framework
-┌─── [Small / Baseline Inputs]  --> Normal standard values (e.g., single digits)
-│
-[Test Vectors Array]├─── [Boundary Inputs]        --> Zero scales, negative flips, type limits
-│
-└─── [Malformed Inputs]         --> Character text input entry where numbers belong
+
 
 #### 🛠️ Core Verification Checklists
 
