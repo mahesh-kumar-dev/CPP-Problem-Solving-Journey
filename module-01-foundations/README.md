@@ -1,11 +1,6 @@
 # 📦 Module 01 — Programming Fundamentals and Syntax
 
-<p align="center">
-  <img src="https://shields.io" alt="Status"/>
-  <img src="https://shields.io" alt="Language"/>
-  <img src="https://shields.io📈?style=flat-square" alt="IDE"/>
-  <img src="https://shields.io" alt="OS"/>
-</p>
+
 
 ---
 
