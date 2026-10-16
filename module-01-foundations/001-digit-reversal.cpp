@@ -9,6 +9,7 @@ int main(){
     int hundreds, tens, ones;
     int reverseNumber;
 
+    cout << "======== DIGIT REVERSAL PROGRAM =========\n";
     // output stream for taking input from user 
     cout << "Enter a three digit positive number: ";
     cin >> originalNumber;
