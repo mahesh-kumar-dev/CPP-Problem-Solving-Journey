@@ -1,7 +1,6 @@
 # 📦 Module 01 — Programming Fundamentals and Syntax
 
 
-
 ---
 
 ## 🔍 Module Overview
@@ -20,10 +19,10 @@ By the end of this module, I aim to be able to:
 
 *   **Compilation Mechanics:** Explain the physical compilation, linking, and execution process.
 *   **From Scratch Coding:** Implement a fully compilation-ready C++ program from a blank source file.
-*   **Structure Comprehension:** Understand preprocessor headers, `main()`, statements, code scopes, and return values.
+*   **Structure Comprehension:** Understand preprocessor headers, namespaces, `main()`, statements, code scopes, and return values.
 *   **State Management:** Safely declare, initialize, and dynamically update variable states.
 *   **Type Selection:** Evaluate and select ideal data types based on memory layouts and data constraints.
-*   **Stream Handling:** Handle standardized input reading (`std::cin`) and formatted console output (`std::cout`).
+*   **Stream Handling:** Handle standardized input reading (`cin`) and formatted console output (`cout`) cleanly using namespaces.
 *   **Arithmetic Precision:** Leverage arithmetic operators while managing integer division and truncation traits.
 *   **Logical Differentiation:** Rigidly distinguish token assignment (`=`) from equality comparisons (`==`).
 *   **Manual Code Tracing:** Build and execute manual trace tables to accurately track program execution flow.
@@ -40,15 +39,20 @@ A C++ program is authored inside a plain text source file, conventionally saved 
 
 #### 💻 Syntax Reference
 ```cpp
-#include <iostream> // Preprocessor directive to include Standard I/O streams
+#include <iostream>  // Preprocessor directive to include Standard I/O streams
+using namespace std; // Allows us to use standard tools (cout, cin, string) without the std:: prefix
 
 int main() {
     // Statement block
-    std::cout << "Hello, C++!" << '\n'; 
+    cout << "Hello, C++!" << '\n'; 
     return 0; // Signals successful program execution to the OS
 }
 ```
+
+#### 🛠️ Visualizing the Compilation Pipeline
+[ Source Code (.cpp) ] ──► [ Preprocessor ] ──► [ Compiler ] ──► [ Linker ] ──► [ Executable Binary (.exe) ]
 *   **Preprocessor Directives:** Lines starting with `#` (like `#include`) tell the preprocessor to pull in external header files before compilation begins.
+*   **Namespaces (`using namespace std;`):** Everything in the C++ Standard Library is stored inside a container called `std` (short for *standard*). Using this statement shortcuts your code so you can write `cout`, `cin`, and `string` directly instead of prefixing them as `std::cout`, `std::cin`, and `std::string`.
 *   **Statements & Blocks:** Individual commands end with a semicolon (`;`). Code blocks are grouped inside curly braces `{ ... }` to establish scope.
 *   **Common Pitfalls:** Missing trailing semicolons, misspelling language identifiers, unmatched braces, or trying to execute a modified script without recompiling it first.
 
@@ -67,18 +71,24 @@ Variables function as named memory addresses reserved to store values that a pro
 | **`double`** | High-precision floating-point numbers | 8 bytes | Real numbers with up to ~15 decimal digits precision |
 | **`char`** | Single ASCII text characters | 1 byte | Single characters wrapped in single quotes (`'A'`, `'$'`) |
 | **`bool`** | Evaluation flags and conditional states | 1 byte | Conditional boolean states: `true` or `false` |
-| **`std::string`** | Contiguous text arrays | Dynamic | Arbitrary text lines (Requires the `<string>` header) |
+| **`string`** | Contiguous text arrays | Dynamic | Arbitrary text lines (Requires the `<string>` header) |
 
 #### 💻 Syntax Reference
 ```cpp
+#include <iostream>
 #include <string>
+using namespace std;
 
-int count = 10;
-double temperature = 36.5;
-char grade = 'A';
-bool isValid = true;
-const int DAYS_IN_WEEK = 7; // Immutable state; cannot be reassigned
-std::string userMessage = "Welcome to Module 01";
+int main() {
+    int count = 10;
+    double temperature = 36.5;
+    char grade = 'A';
+    bool isValid = true;
+    const int DAYS_IN_WEEK = 7; // Immutable state; cannot be reassigned
+    string userMessage = "Welcome to Module 01";
+    
+    return 0;
+}
 ```
 
 *   **Declaration vs. Initialization:** Declaration informs the compiler of a variable's identifier and type. Initialization allocates its very first value. Reading an uninitialized variable leads to **undefined behavior** (garbage data values).
@@ -87,33 +97,34 @@ std::string userMessage = "Welcome to Module 01";
 
 ### 3. Input and Output Streams
 
-C++ uses streams to interface with the terminal. `std::cin` pulls data from the standard input keyboard buffer, while `std::cout` pushes data down to the display screen.
+C++ uses streams to interface with the terminal. `cin` pulls data from the standard input keyboard buffer, while `cout` pushes data down to the display screen.
 
 #### 💻 Syntax Reference
 ```cpp
 #include <iostream>
 #include <string>
+using namespace std;
 
 int main() {
     int age;
-    std::string fullName;
+    string fullName;
 
-    std::cout << "Enter your age: ";
-    std::cin >> age; // Reads a single formatted numeric token
+    cout << "Enter your age: ";
+    cin >> age; // Reads a single formatted numeric token
     
     // Clear the leftover newline from the input buffer before reading text strings
-    std::cin.ignore(); 
+    cin.ignore(); 
 
-    std::cout << "Enter your full name: ";
-    std::getline(std::cin, fullName); // Reads an entire line including spacing layout
+    cout << "Enter your full name: ";
+    getline(cin, fullName); // Reads an entire line including spacing layout
 
-    std::cout << "Hello, " << fullName << "! Age: " << age << '\n';
+    cout << "Hello, " << fullName << "! Age: " << age << '\n';
     return 0;
 }
 ```
 
-*   **The Streaming Trait:** `std::cin >>` reads space-delimited text blocks (tokens) and skips leading whitespaces. To capture an entire line containing explicit space characters, utilize `std::getline()`.
-*   **Performance Note:** Use `'\n'` over `std::endl` because `std::endl` forces an expensive, manual hardware buffer flush, slowing down rapid output tracking.
+*   **The Streaming Trait:** `cin >>` reads space-delimited text blocks (tokens) and skips leading whitespaces. To capture an entire line containing explicit space characters, utilize `getline(cin, variableName)`.
+*   **Performance Note:** Use `'\n'` over `endl` because `endl` forces an expensive, manual hardware buffer flush, slowing down rapid output tracking.
 
 ---
 
@@ -171,7 +182,10 @@ Debugging is an analytical elimination process. Errors are categorized into thre
 2.  **Runtime Errors:** The executable crashes while running because it attempts an illegal or impossible operation (e.g., division by a dynamic zero variable, memory pointer faults).
 3.  **Logic Errors:** The program compiles and runs smoothly without crashing but outputs incorrect, broken math computations because the implementation instructions are flawed.
 
-#### 🪲 Structured Debugging Framework---
+#### 🪲 Structured Debugging Framework
+[Observe Defect] ──► [Isolate Code Target] ──► [Trace Variable Array] ──► [Form Fix Theory] ──► [Patch & Verify]
+
+---
 
 ## 🧩 Independent Problem-Solving Challenges
 
@@ -201,11 +215,16 @@ These problems build core problem-decomposition strategies. Every solution must 
 
 Software verification demands validating boundaries where calculations are most susceptible to breaking. For standard structural math and syntax validation routines, test inputs are categorized into three main tiers:
 
-### 🎯 Test Matrix Framework#### 🛠️ Core Verification Checklists
+### 🎯 Test Matrix Framework
+┌─── [Small / Baseline Inputs]  --> Normal standard values (e.g., single digits)
+│
+[Test Vectors Array]├─── [Boundary Inputs]        --> Zero scales, negative flips, type limits
+│
+└─── [Malformed Inputs]         --> Character text input entry where numbers belong
+
+#### 🛠️ Core Verification Checklists
 
 *   **Baseline Vectors:** Simple, expected parameters to check if the basic logic is mathematically correct (e.g., checking standard positive integer ranges).
 *   **Boundary Limits:** High-capacity ranges bordering maximum primitive bit sizes (e.g., checking if large inputs exceed `int` capacity and require a `long long` configuration to prevent integer overflow errors).
 *   **Zero-Scale Inputs:** Validating inputs of exactly `0`. Verify if zero parameters cause issues like division-by-zero runtime faults or broken modulo calculations.
 *   **Sign Flips:** Processing negative integer profiles inside challenges that expect unsigned measurements (e.g., validating how the unit converter handles a negative distance input).
-
-#### 🛠️ Visualizing the Compilation Pipeline
