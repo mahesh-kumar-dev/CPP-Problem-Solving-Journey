@@ -12,12 +12,15 @@ int main(){
     cout << "======== DIGIT REVERSAL PROGRAM =========\n";
     // output stream for taking input from user 
     cout << "Enter a three digit positive number: ";
-    cin >> originalNumber;
+    if(!(cin >> originalNumber)){
+        cout << "ERROR! Please enter a valid integer.\n";
+        return 1; // return immediately from the program
+    }
 
     // check the limits
     if(originalNumber < 100 || originalNumber > 999){
         cout << "ERROR ! : Input is not valid three digit number.";
-        return 1;
+        return 1; // return immediately from the program
     }
 
     ones = originalNumber % 10;
