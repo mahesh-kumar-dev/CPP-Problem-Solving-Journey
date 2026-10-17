@@ -9,34 +9,45 @@ int main (){
 	
 	cout << "=========== CLOCK 24-HOUR/12-HOUR SYSTEM ==========\n";
 	cout << "Enter the current hours: ";
-	cin >> currentTime;
+    
+    // Validation test 1
+	if(!(cin >> currentTime)){
+        cout << "ERROR! Invalid hour.\n";
+        return 1; // return immediately from the program 
+    }
+
+    // Validation test 2
+    if(currentTime < 0 || currentTime > 23){
+        cout << "ERROR! Hours must be between 0 and 23.\n";
+        return 1; // return immediately from the program 
+    }
+    
 		
 	cout  << "Add extra hours: ";
-	cin >> extraHours;
+	// Validation test 3
+	if(!(cin >> extraHours)){
+        cout << "ERROR! Invalid extra hours value.\n";
+        return 1; // return immediately from the program 
+    }
+
 	
 	// as 24 hours clock we have to use this formula
-	finalTime24 = (currentTime + extraHours ) % 24 ;
+    // negative extra hours can be added
+	finalTime24 = ((currentTime + extraHours ) % 24 + 24) % 24;
 	
 	
 	// convert 24-hour system to 12-hour system
 	int finalTime12;
-	string period;
+	string period = (finalTime24 >= 12)? "PM": "AM";
 
-	if(finalTime24 >= 12){
-		period = "PM";
-	} else {
-		period = "AM";
-	}
+	
 
-	// Converting hours to 12 hour scale
-	if(finalTime24 == 0){
-		finalTime12 = 0; // 00:00 is 12 AM
-	} else if(finalTime24 > 12){
-		finalTime12 = finalTime24 - 12; // 13 becomes 1
-	} else {
-		finalTime12 = finalTime24; // 1 through 12 stay same 
-	}
+	finalTime12 = finalTime24 % 12;
+    if(finalTime12 == 0){
+        finalTime12 = 12;
+    }
 
+    cout << "----------- CLOCK RESULTS -------------\n";
 	cout << "Current Hours: " << currentTime << " hrs " << endl;
 	cout << "Extra Hours: " << extraHours << " hrs" << endl;
 	cout << "Final Hours (24hr): " << finalTime24 << " hrs" << endl;
