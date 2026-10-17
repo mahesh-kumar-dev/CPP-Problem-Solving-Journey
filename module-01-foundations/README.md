@@ -1,226 +1,574 @@
-# 📦 Module 01 — Programming Fundamentals and Syntax
+# Module 01 — C++ Foundations and Problem Solving
+
+<p align="center">
+  <strong>CPP-Problem-Solving-Journey</strong><br>
+  Building programming fundamentals through practical C++ implementations.
+</p>
 
 
----
 
-## 🔍 Module Overview
+## 📌 About This Module
 
-This module rebuilds the core structural foundations required to write, understand, trace, and debug standard C++ programs from scratch. 
+Module 01 establishes the foundations of C++ programming through small, independently implemented console applications. The exercises focus on transforming mathematical and everyday problems into logical, executable instructions.
 
-The core focus is not merely memorizing syntax semantics. Instead, it emphasizes understanding how data is structurally represented in memory, how sequential statements execute, how expressions evaluate to produce results, and how to logically translate a simple, word-based problem statement into a functionally correct program.
+Rather than memorizing syntax alone, this module emphasizes understanding how variables store data, how operators transform values, how integer division and remainders work, and how to verify a program's output using examples and boundary cases.
 
-These concepts form the crucial, unshakeable bedrock for all future modules covering conditional logical branches, loops, modular functions, linear structures, and complex software projects.
+This module is the starting point of my journey toward stronger problem-solving skills, data structures and algorithms, object-oriented programming, and practical software development.
 
----
+**Repository:** [CPP-Problem-Solving-Journey](https://github.com/mahesh-kumar-dev/CPP-Problem-Solving-Journey)
+
+**Module:** `module-01-foundations/`
 
 ## 🎯 Learning Objectives
 
-By the end of this module, I aim to be able to:
+By completing and reviewing these exercises, I am developing the ability to:
 
-*   **Compilation Mechanics:** Explain the physical compilation, linking, and execution process.
-*   **From Scratch Coding:** Implement a fully compilation-ready C++ program from a blank source file.
-*   **Structure Comprehension:** Understand preprocessor headers, namespaces, `main()`, statements, code scopes, and return values.
-*   **State Management:** Safely declare, initialize, and dynamically update variable states.
-*   **Type Selection:** Evaluate and select ideal data types based on memory layouts and data constraints.
-*   **Stream Handling:** Handle standardized input reading (`cin`) and formatted console output (`cout`) cleanly using namespaces.
-*   **Arithmetic Precision:** Leverage arithmetic operators while managing integer division and truncation traits.
-*   **Logical Differentiation:** Rigidly distinguish token assignment (`=`) from equality comparisons (`==`).
-*   **Manual Code Tracing:** Build and execute manual trace tables to accurately track program execution flow.
-*   **Error Classification:** Rapidly identify, isolate, and debug compile-time, runtime, and algorithmic logic errors.
-*   **Software Hygiene:** Compile, run, systematically test, and honestly document independent solutions.
+- Write, compile, execute, and debug standalone C++ programs.
+- Understand the structure of a C++ source file and the role of `main()`.
+- Read user input using `cin` and display results using `cout`.
+- Choose suitable numeric types, including `int`, `long long`, and `double`.
+- Apply arithmetic, assignment, and comparison operators.
+- Understand integer division, modulo, and quotient-remainder decomposition.
+- Extract and manipulate individual digits of an integer.
+- Convert measurements and represent totals in larger units and remainders.
+- Use conditions to classify values and handle special cases.
+- Format decimal output using the `<iomanip>` library.
+- Recognize input-validation requirements, precision limitations, and integer-overflow risks.
+- Test solutions using normal inputs, boundaries, zero values, and invalid inputs.
+- Document code and learning progress in a structured GitHub repository.
 
----
+## 📂 Exercise Overview
 
-## 🧭 Core Architectural Concepts
+The module covers the following 11 problem statements.
 
-### 1. Program Structure and Execution
+| No. | Exercise | Main concepts |
+|---:|---|---|
+| 01 | Reverse a three-digit integer | Digit extraction, `%`, `/`, range validation |
+| 02 | Convert kilometres to metres and centimetres | Unit conversion, `double`, precision, formatted output |
+| 03 | Rectangle calculator and square classification | Area, perimeter, comparisons, numeric safety |
+| 04 | Swap two values using a temporary variable | Variables, assignment, state changes |
+| 05 | Convert total seconds into hours, minutes, and seconds | Integer division, modulo, unit decomposition |
+| 06 | Convert days into years, weeks, and remaining days | Quotient-remainder arithmetic |
+| 07 | Convert inches into feet and remaining inches | Integer division, modulo, unit conversion |
+| 08 | Calculate ATM notes for a monetary amount | Greedy denomination selection, division, remainder |
+| 09 | Calculate the sum of a four-digit integer's digits | Digit extraction, arithmetic accumulation |
+| 10 | Swap two values without a temporary variable | Arithmetic operations, intermediate values, overflow risks |
+| 11 | Convert a 24-hour clock time into 12-hour format | Modulo, clock arithmetic, AM/PM, midnight and noon |
 
-A C++ program is authored inside a plain text source file, conventionally saved with the `.cpp` extension. The compiler parses this text, ensures it adheres to strict linguistic rules, and converts it into a machine-executable binary. Upon execution, the operating system yields initial control directly to the entry point function: `main()`.
+> **Implementation note:** These are separate programming exercises, not one combined application. Each source file that defines its own `main()` should be compiled independently.
 
-#### 💻 Syntax Reference
-```cpp
-#include <iostream>  // Preprocessor directive to include Standard I/O streams
-using namespace std; // Allows us to use standard tools (cout, cin, string) without the std:: prefix
+## 🧠 Technical Concepts Explained
 
-int main() {
-    // Statement block
-    cout << "Hello, C++!" << '\n'; 
-    return 0; // Signals successful program execution to the OS
-}
-```
+### 1. Structure of a C++ Program
 
-#### 🛠️ Visualizing the Compilation Pipeline
-[ Source Code (.cpp) ] ──► [ Preprocessor ] ──► [ Compiler ] ──► [ Linker ] ──► [ Executable Binary (.exe) ]
-*   **Preprocessor Directives:** Lines starting with `#` (like `#include`) tell the preprocessor to pull in external header files before compilation begins.
-*   **Namespaces (`using namespace std;`):** Everything in the C++ Standard Library is stored inside a container called `std` (short for *standard*). Using this statement shortcuts your code so you can write `cout`, `cin`, and `string` directly instead of prefixing them as `std::cout`, `std::cin`, and `std::string`.
-*   **Statements & Blocks:** Individual commands end with a semicolon (`;`). Code blocks are grouped inside curly braces `{ ... }` to establish scope.
-*   **Common Pitfalls:** Missing trailing semicolons, misspelling language identifiers, unmatched braces, or trying to execute a modified script without recompiling it first.
+A C++ program generally contains preprocessor directives, declarations, a `main()` function, executable statements, and a return statement.
 
----
-
-### 2. Variables, Constants, and Data Types
-
-Variables function as named memory addresses reserved to store values that a program can read or mutate. Constants reflect fixed configurations that are strictly read-only after initialization.
-
-#### 📊 Core Primitive Types Matrix
-
-| Type | Typical Purpose | Size (Typical) | Value Range / Representation |
-| :---: | :--- | :---: | :--- |
-| **`int`** | Whole numbers / basic counters | 4 bytes | -2,147,483,648 to 2,147,483,647 |
-| **`long long`** | High-capacity integer ranges | 8 bytes | Over ± 9 × 10¹⁸ (Great for large factorials/IDs) |
-| **`double`** | High-precision floating-point numbers | 8 bytes | Real numbers with up to ~15 decimal digits precision |
-| **`char`** | Single ASCII text characters | 1 byte | Single characters wrapped in single quotes (`'A'`, `'$'`) |
-| **`bool`** | Evaluation flags and conditional states | 1 byte | Conditional boolean states: `true` or `false` |
-| **`string`** | Contiguous text arrays | Dynamic | Arbitrary text lines (Requires the `<string>` header) |
-
-#### 💻 Syntax Reference
 ```cpp
 #include <iostream>
-#include <string>
-using namespace std;
 
 int main() {
-    int count = 10;
-    double temperature = 36.5;
-    char grade = 'A';
-    bool isValid = true;
-    const int DAYS_IN_WEEK = 7; // Immutable state; cannot be reassigned
-    string userMessage = "Welcome to Module 01";
-    
+    std::cout << "Hello, C++!" << '\n';
     return 0;
 }
 ```
 
-*   **Declaration vs. Initialization:** Declaration informs the compiler of a variable's identifier and type. Initialization allocates its very first value. Reading an uninitialized variable leads to **undefined behavior** (garbage data values).
+**Key components**
 
----
+- `#include <iostream>` makes standard input/output stream declarations available.
+- `int main()` defines the program's entry point.
+- `{ }` enclose a block of statements.
+- `std::cout` sends output to the standard output stream.
+- `'\n'` inserts a newline.
+- `return 0;` conventionally indicates successful termination.
+- `;` terminates most individual statements.
 
-### 3. Input and Output Streams
+**Compilation workflow**
 
-C++ uses streams to interface with the terminal. `cin` pulls data from the standard input keyboard buffer, while `cout` pushes data down to the display screen.
+```text
+C++ Source File (.cpp)
+        |
+        v
+   Preprocessing
+        |
+        v
+     Compilation
+        |
+        v
+       Linking
+        |
+        v
+  Executable Program
+        |
+        v
+      Execution
+```
 
-#### 💻 Syntax Reference
+The exact toolchain may combine or automate some stages, but understanding the workflow helps distinguish compilation errors from errors that occur while a program runs.
+
+### 2. Variables and Data Types
+
+Variables hold values that a program uses during execution. Selecting an appropriate type helps preserve the intended range and precision.
+
+| Type | Typical use | Important consideration |
+|---|---|---|
+| `int` | Whole numbers and counters | Limited range; arithmetic can overflow |
+| `long long` | Larger integer totals | Wider range than `int` on common platforms |
+| `double` | Fractional measurements | Approximate floating-point representation |
+| `char` | A single character | Character literal uses single quotes |
+| `bool` | True/false states | Useful for logical results |
+| `std::string` | Text | Requires the `<string>` header |
+
+Example:
+
+```cpp
+int quantity = 12;
+long long totalSeconds = 90000;
+double distanceKm = 1.75;
+bool isSquare = true;
+```
+
+**Declaration versus initialization**
+
+```cpp
+int value;       // Declaration
+int count = 10;  // Declaration and initialization
+```
+
+Reading an uninitialized local variable can produce undefined behavior. Initialize variables before using their values.
+
+**Important distinction:** Choosing `double` does not make every decimal mathematically exact. Binary floating-point cannot represent every decimal fraction precisely. For financial applications, integer units such as paisa are often preferable to floating-point amounts.
+
+### 3. Standard Input and Output — `<iostream>`
+
+The `<iostream>` header provides standard stream objects used to communicate with a console.
+
 ```cpp
 #include <iostream>
-#include <string>
-using namespace std;
 
 int main() {
-    int age;
-    string fullName;
+    int number;
 
-    cout << "Enter your age: ";
-    cin >> age; // Reads a single formatted numeric token
-    
-    // Clear the leftover newline from the input buffer before reading text strings
-    cin.ignore(); 
+    std::cout << "Enter an integer: ";
+    std::cin >> number;
 
-    cout << "Enter your full name: ";
-    getline(cin, fullName); // Reads an entire line including spacing layout
-
-    cout << "Hello, " << fullName << "! Age: " << age << '\n';
+    std::cout << "You entered: " << number << '\n';
     return 0;
 }
 ```
 
-*   **The Streaming Trait:** `cin >>` reads space-delimited text blocks (tokens) and skips leading whitespaces. To capture an entire line containing explicit space characters, utilize `getline(cin, variableName)`.
-*   **Performance Note:** Use `'\n'` over `endl` because `endl` forces an expensive, manual hardware buffer flush, slowing down rapid output tracking.
+| Component | Purpose |
+|---|---|
+| `std::cin` | Reads formatted input |
+| `std::cout` | Displays output |
+| `>>` | Extracts input into a variable |
+| `<<` | Inserts output into a stream |
+| `'\n'` | Starts a new output line |
+| `std::endl` | Inserts a newline and flushes the stream |
 
----
+For ordinary console output, `'\n'` is usually preferable to `std::endl` when an immediate flush is unnecessary.
 
-### 4. Operators and Expressions
+**Input-validation consideration:** `std::cin >> number` can fail if the supplied input is not a valid integer. A robust program should check the stream state before using the input.
 
-Operators perform mathematical manipulation, assignment mutations, and Boolean logic operations on variable expressions.
+### 4. Formatted Output — `<iomanip>`
 
-#### 🧮 Operator Category Breakdown
-*   **Arithmetic Operators:** Addition (`+`), Subtraction (`-`), Multiplication (`*`), Division (`/`), and Modulo Remainder (`%`).
-*   **Assignment & Comparison:** Single equals (`=`) performs an assignment action (stores the right-hand value inside the left-hand container). Double equals (`==`) compares equality and returns a boolean state. Inequality is handled via `!=`.
+The `<iomanip>` header provides stream manipulators that control how output is displayed. It is especially useful when a program prints fractional measurements or wants consistent decimal formatting.
 
-#### 💻 Syntax Reference
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    double measurement = 123.456789;
+
+    std::cout << std::fixed
+              << std::setprecision(2)
+              << measurement << '\n';
+
+    return 0;
+}
+```
+
+Output:
+
+```text
+123.46
+```
+
+#### Important `<iomanip>` components
+
+| Component | Function | Example application |
+|---|---|---|
+| `std::fixed` | Displays floating-point values in fixed-point notation | Consistent decimal measurements |
+| `std::setprecision(n)` | Controls precision; with `fixed`, specifies digits after the decimal point | Displaying two decimal places |
+| `std::setw(n)` | Sets a minimum field width for the next formatted field | Aligning tabular output |
+| `std::setfill(ch)` | Sets the character used to fill unused field width | Padding a display with zeroes or other characters |
+| `std::left` | Left-aligns output within a field | Readable report columns |
+| `std::right` | Right-aligns output within a field | Aligning numeric values |
+
+Example using width and fill:
+
+```cpp
+#include <iostream>
+#include <iomanip>
+
+int main() {
+    std::cout << std::setfill('0')
+              << std::setw(4) << 7 << '\n';
+    return 0;
+}
+```
+
+Output:
+
+```text
+0007
+```
+
+**Precision detail:** `std::setprecision(2)` by itself generally means two significant digits. Combined with `std::fixed`, it means two digits after the decimal point. These manipulators affect display formatting; they do not permanently round or change the value stored in a variable.
+
+`std::setw()` normally applies to the next formatted field, while settings such as `std::fixed` and `std::setfill()` remain in effect until changed.
+
+### 5. Arithmetic Operators
+
+Arithmetic operators perform calculations on numeric values.
+
+| Operator | Meaning | Example |
+|---|---|---|
+| `+` | Addition | `a + b` |
+| `-` | Subtraction | `a - b` |
+| `*` | Multiplication | `length * width` |
+| `/` | Division | `total / divisor` |
+| `%` | Remainder for integer operands | `total % divisor` |
+
+Example:
+
 ```cpp
 int a = 17;
 int b = 5;
 
-int sum = a + b;         // Evaluation: 22
-int quotient = a / b;    // Integer Division Evaluation: 3 (Truncated fraction)
-int remainder = a % b;   // Modulo Evaluation: 2 (17 - (5 * 3))
-bool isEqual = (a == b); // Evaluation: false (0)
+int sum = a + b;        // 22
+int quotient = a / b;   // 3
+int remainder = a % b; // 2
 ```
 
-⚠️ **The Integer Division Trap:** When dividing two integer types, C++ strictly drops the decimal remainder without rounding. If you require real decimal evaluation fractions, at least one operator value must be explicitly represented as a floating-point literal type (e.g., `17.0 / 5`).
+#### Integer division
 
----
-
-### 5. Expressions, Statements, and Execution Order
-
-An **expression** calculates and resolves down to a concrete individual value (e.g., `x + 5`). A **statement** represents an isolated directive instructing the computer to perform a definitive task (e.g., `x = y + 5;`).
-
-#### 📝 Code Tracing and State Verification
-To accurately debug logic anomalies, run code dry-runs by building manual trace tracking charts to monitor step-by-step changes to active memory locations.
+When both operands are integers, division discards the fractional part toward zero.
 
 ```cpp
-int x = 4;
-int y = x + 3;
-x = y - 2;
+int result = 17 / 5; // 3
 ```
 
-#### 📊 Execution Trace Matrix
+If a fractional result is required, use floating-point arithmetic:
 
-| Program Progression Point | Value of `x` | Value of `y` | Notes / Reasoning |
-| :--- | :---: | :---: | :--- |
-| **Line 1 Initialization** | `4` | *Undefined* | `x` is instantiated in memory with an initial value of 4. |
-| **Line 2 Assignment** | `4` | `7` | `y` evaluates expression `4 + 3` to successfully bind 7. |
-| **Line 3 Mutation** | `5` | `7` | `x` overwrites its original value with the evaluation of `7 - 2`. |
+```cpp
+double result = 17.0 / 5; // 3.4
+```
 
----
+Division or remainder with a zero divisor is invalid. Also remember that signed integer overflow is not a safe way to obtain a larger result; check ranges and choose an appropriate type.
 
-### 6. Errors and Debugging Classifications
+### 6. Assignment and Comparison
 
-Debugging is an analytical elimination process. Errors are categorized into three main behaviors:
+Assignment stores a value:
 
-1.  **Syntax Errors (Compile-Time):** Code layout breaks rigid grammatical compiler layout requirements (e.g., typos, missing symbols). The code completely fails to generate an executable binary file.
-2.  **Runtime Errors:** The executable crashes while running because it attempts an illegal or impossible operation (e.g., division by a dynamic zero variable, memory pointer faults).
-3.  **Logic Errors:** The program compiles and runs smoothly without crashing but outputs incorrect, broken math computations because the implementation instructions are flawed.
+```cpp
+int score = 90;
+score = 95;
+```
 
-#### 🪲 Structured Debugging Framework
-[Observe Defect] ──► [Isolate Code Target] ──► [Trace Variable Array] ──► [Form Fix Theory] ──► [Patch & Verify]
+Comparison evaluates a relationship and produces a Boolean result:
 
----
+```cpp
+bool equal = (5 == 5);       // true
+bool different = (5 != 3);  // true
+bool larger = (8 > 4);      // true
+bool smaller = (2 < 7);     // true
+```
 
-## 🧩 Independent Problem-Solving Challenges
+The most important distinction is:
 
-These problems build core problem-decomposition strategies. Every solution must include an algorithmic blueprint alongside rigorous validation checks.
+- `=` means **assign a value**.
+- `==` means **compare two values for equality**.
 
-### 1. Digit Reversal
-*   **Prompt:** Read a three-digit positive integer (e.g., `371`). Isolate each individual digit using integer division and modulo math, then print the values in reverse order (`173`).
+Comparisons support exercises such as checking whether a rectangle is a square or determining whether a time value lies in a valid range.
 
-### 2. Unit Converter
-*   **Prompt:** Prompt for a distance input in total kilometers. Calculate and print its equivalent scale output translated precisely down into meters and centimeters.
+### 7. Digit Extraction Using Division and Modulo
 
-### 3. Clock Arithmetic
-*   **Prompt:** Take a 24-hour baseline hour marker (0–23) and an offset integer representing advanced elapsed hours. Determine what hour mark the clock will read after that interval has passed (hint: use the modulo operator).
+For a non-negative integer:
 
-### 4. Rectangle Investigator
-*   **Prompt:** Read the length and width values of a geometric layout shape. Compute its overall perimeter and area metrics, then output a boolean flag validation verifying whether the dimensions construct a perfect square.
+```cpp
+int digit = number % 10;
+int remaining = number / 10;
+```
 
-### 5. Variable Swap (No Extra Space Variant)
-*   **Prompt:** Read two integer inputs into variables `a` and `b`. Swap their data values using a temporary intermediate variable, then try to figure out a secondary algorithmic approach that executes the swap *without* using a temporary variable at all.
+- `% 10` extracts the last decimal digit.
+- `/ 10` removes the last digit through integer division.
 
-### 6. Total-Seconds Converter
-*   **Prompt:** Accept an arbitrary large integer representing an elapsed time value in total seconds. Dissect that counter value and parse it into an organized readout of total hours, remaining minutes, and leftover seconds.
+For example, starting with `482`:
 
----
+| Step | Current number | Extracted digit | Remaining number |
+|---:|---:|---:|---:|
+| 1 | 482 | 2 | 48 |
+| 2 | 48 | 8 | 4 |
+| 3 | 4 | 4 | 0 |
+
+This pattern supports digit reversal and digit-sum calculations. It also illustrates how a mathematical representation can be translated into simple program instructions.
+
+### 8. Quotient-Remainder Decomposition
+
+Many everyday conversion problems share the same algorithmic pattern: determine how many complete larger units fit into a total, then calculate the remainder.
+
+For a non-negative total measured in seconds:
+
+```cpp
+hours = totalSeconds / 3600;
+remainingSeconds = totalSeconds % 3600;
+
+minutes = remainingSeconds / 60;
+seconds = remainingSeconds % 60;
+```
+
+The same idea is used for:
+
+- Converting days into years and weeks.
+- Converting inches into feet and remaining inches.
+- Calculating how many notes of a denomination can be used.
+- Extracting individual decimal digits.
+
+This is one of the central reusable patterns in Module 01.
+
+### 9. Unit Conversion and Numeric Precision
+
+Unit conversions use arithmetic relationships between measurement systems.
+
+Examples:
+
+- \(1\) kilometre \(= 1000\) metres.
+- \(1\) kilometre \(= 100000\) centimetres.
+- \(1\) foot \(= 12\) inches.
+
+For fractional input, the variable types must preserve the required precision. Storing a fractional result in an integer discards its fractional part.
+
+For example, a distance of `1.75` kilometres corresponds to `1750` metres and `175000` centimetres.
+
+When presenting decimal results, use suitable formatting and ensure the displayed precision matches the problem's requirements.
+
+### 10. Clock Arithmetic and Modulo
+
+A 24-hour clock repeats after 24 hours. Modulo arithmetic can normalize a non-negative hour total into the range from `0` to `23`.
+
+```cpp
+int finalHour = (currentHour + extraHours) % 24;
+```
+
+For a valid non-negative result:
+
+- `0` represents midnight in 24-hour notation.
+- `12` represents noon.
+- Hours from `0` through `11` correspond to AM.
+- Hours from `12` through `23` correspond to PM.
+
+When converting to a 12-hour display, hour `0` should display as `12 AM`, and hour `12` should display as `12 PM`.
+
+If negative offsets are allowed, ordinary `% 24` may produce a negative remainder. Normalize the result deliberately. Also consider whether adding two large integers could overflow before the modulo operation is applied.
+
+### 11. Greedy Denomination Selection
+
+The ATM exercise explores selecting currency notes from denominations such as `500`, `100`, `50`, `20`, and `10`.
+
+For each denomination:
+
+1. Divide the remaining amount by the denomination to find the number of notes.
+2. Calculate the remainder.
+3. Continue with the next smaller denomination.
+
+Example for an amount of `1260`:
+
+| Denomination | Notes | Remaining amount |
+|---:|---:|---:|
+| 500 | 2 | 260 |
+| 100 | 2 | 60 |
+| 50 | 1 | 10 |
+| 20 | 0 | 10 |
+| 10 | 1 | 0 |
+
+This exercise demonstrates a greedy strategy. The result depends on the available denominations and the assumption that sufficient notes exist. A program should also validate negative amounts and determine what to do when an amount cannot be represented by the allowed denominations.
+
+### 12. Swapping Values and Intermediate State
+
+Swapping means exchanging the values stored in two variables.
+
+The temporary-variable approach uses a third variable to preserve one value while assignments take place. It is generally clear and safe.
+
+An arithmetic-based approach can explore how intermediate values change without a temporary variable, but addition/subtraction swapping can overflow for large integers. For general C++ code, prefer a temporary variable or `std::swap` when appropriate.
+
+This comparison demonstrates why understanding intermediate state and numeric limits matters more than simply making a shorter program.
+
+## 🗂️ Problem Statements and Practice Checklist
+
+The following list records the complete exercise set discussed for this module. Use it as a progress checklist while verifying the corresponding source files in the repository.
+
+- [ ] **Exercise 01 — Digit Reversal:** Read a three-digit positive integer, extract its digits, and print them in reverse order.
+- [ ] **Exercise 02 — Distance Converter:** Convert a distance in kilometres into metres and centimetres while preserving fractional input where required.
+- [ ] **Exercise 03 — Rectangle Investigator:** Calculate area and perimeter, and determine whether valid dimensions form a square.
+- [ ] **Exercise 04 — Swap with a Temporary Variable:** Exchange the values of two variables using an intermediate variable.
+- [ ] **Exercise 05 — Seconds Converter:** Convert total seconds into hours, remaining minutes, and remaining seconds.
+- [ ] **Exercise 06 — Days Converter:** Convert a total number of days into 365-day years, weeks, and remaining days.
+- [ ] **Exercise 07 — Inches Converter:** Convert total inches into feet and remaining inches.
+- [ ] **Exercise 08 — ATM Note Calculator:** Calculate the number of notes of each allowed denomination for a requested amount.
+- [ ] **Exercise 09 — Four-Digit Digit Sum:** Extract and add the four digits of a valid four-digit integer.
+- [ ] **Exercise 10 — Swap without a Temporary Variable:** Explore arithmetic swapping and evaluate its limitations.
+- [ ] **Exercise 11 — 24-Hour to 12-Hour Clock:** Advance a clock by a specified number of hours and display the corresponding 12-hour time with AM/PM.
+
+The checkboxes are a practice tracker, not a claim that each task has been independently tested or completed to production standards.
 
 ## 🧪 Testing and Edge Cases
 
-Software verification demands validating boundaries where calculations are most susceptible to breaking. For standard structural math and syntax validation routines, test inputs are categorized into three main tiers:
+A program should be tested against more than one ordinary input. The following examples are useful starting points.
 
-### 🎯 Test Matrix Framework
+| Exercise | Suggested test inputs |
+|---|---|
+| Digit reversal | `123`, `482`, `100`, `99`, `1000` |
+| Distance conversion | `1.75`, `1.2345`, `0.005`, `2.0` |
+| Rectangle | `5 × 5`, `8 × 3`, `0 × 4`, `-2 × 6` |
+| Temporary-variable swap | `3, 9`; equal values; negative values |
+| Seconds conversion | `0`, `59`, `60`, `3599`, `3600`, `3601` |
+| Days conversion | `0`, `6`, `7`, `364`, `365`, `366`, `730` |
+| Inches conversion | `0`, `11`, `12`, `13`, `24` |
+| ATM calculator | `0`, `10`, `60`, `500`, `1265`, `-100` |
+| Four-digit digit sum | `1000`, `1234`, `9999`, `999`, `10000` |
+| Arithmetic swap | Positive, negative, equal, and near-limit integer values |
+| Clock conversion | `23 + 1`, `11 + 1`, `12 + 1`, `0 + 0`, `22 + 5` |
 
+### Recommended verification process
 
-#### 🛠️ Core Verification Checklists
+1. **Understand the requirement:** Identify valid inputs, expected outputs, and assumptions.
+2. **Predict the output:** Calculate the expected result manually before running the program.
+3. **Execute the program:** Enter the selected test input and capture the actual output.
+4. **Compare results:** Check for arithmetic mistakes, incorrect formatting, and missing cases.
+5. **Fix and retest:** Verify that a correction solves the problem without breaking previously passing cases.
 
-*   **Baseline Vectors:** Simple, expected parameters to check if the basic logic is mathematically correct (e.g., checking standard positive integer ranges).
-*   **Boundary Limits:** High-capacity ranges bordering maximum primitive bit sizes (e.g., checking if large inputs exceed `int` capacity and require a `long long` configuration to prevent integer overflow errors).
-*   **Zero-Scale Inputs:** Validating inputs of exactly `0`. Verify if zero parameters cause issues like division-by-zero runtime faults or broken modulo calculations.
-*   **Sign Flips:** Processing negative integer profiles inside challenges that expect unsigned measurements (e.g., validating how the unit converter handles a negative distance input).
+Testing should include invalid input where appropriate. For example, a converter that accepts only non-negative measurements should not silently treat negative input as a valid measurement.
+
+## ⚠️ Common Mistakes and Engineering Considerations
+
+- **Integer truncation:** Assigning a fractional calculation to an integer discards its fractional component.
+- **Overflow:** A mathematically valid expression can exceed the representable range of its data type.
+- **Invalid input:** A failed input operation should be detected before the program uses the resulting variable.
+- **Incorrect boundaries:** A program may work for ordinary inputs but fail at zero, midnight, noon, or a maximum accepted value.
+- **Missing headers:** Include the appropriate standard header for every library feature used.
+- **Misleading output:** Labels and decimal formatting should match the actual values being displayed.
+- **Unstated assumptions:** Document rules such as a 365-day year or unlimited ATM note availability.
+- **Overgeneralization:** A program designed for positive three-digit integers should not be described as handling every integer unless it actually does.
+
+## 💻 How to Compile and Run
+
+### Option 1 — Dev-C++
+
+1. Open Dev-C++.
+2. Open the desired `.cpp` source file.
+3. Compile the source file and resolve any reported errors.
+4. Run the executable.
+5. Enter the test values when prompted.
+6. Compare the result against the expected output.
+
+Compile each exercise independently if it contains its own `main()` function.
+
+### Option 2 — GCC or MinGW
+
+Verify that the C++ compiler is installed and available through your terminal:
+
+```bash
+g++ --version
+```
+
+Navigate to the local module directory and compile one source file:
+
+```bash
+g++ -std=c++17 -Wall -Wextra -Wpedantic your-file.cpp -o exercise
+```
+
+Replace `your-file.cpp` with the actual source filename.
+
+On Windows Command Prompt:
+
+```bat
+exercise.exe
+```
+
+On Linux or macOS:
+
+```bash
+./exercise
+```
+
+**Compiler flags explained**
+
+| Flag | Purpose |
+|---|---|
+| `-std=c++17` | Selects the C++17 language standard |
+| `-Wall` | Enables a useful collection of compiler warnings |
+| `-Wextra` | Enables additional warnings |
+| `-Wpedantic` | Requests diagnostics for certain non-standard language extensions |
+
+Warnings can identify potential mistakes even when a program compiles successfully.
+
+## 🛠️ Tools and Technologies
+
+- **Language:** C++
+- **Development environment:** Dev-C++ / GCC-MinGW
+- **Core libraries:** `<iostream>`, `<iomanip>`, and `<string>` when required
+- **Version control:** Git
+- **Code hosting and documentation:** GitHub
+- **Programming style:** Small console applications and incremental problem-solving practice
+
+## 📈 Module Scope
+
+### Covered in this module
+
+- Program structure and basic syntax
+- Standard console input and output
+- Variables and numeric types
+- Arithmetic and comparison operators
+- Integer division and modulo
+- Digit manipulation
+- Unit and time conversions
+- Basic classification and validation
+- Formatted output and decimal precision
+- Manual testing and edge-case reasoning
+
+### Planned for future modules
+
+These are future learning areas, not claims of completion in Module 01:
+
+- Conditional logic and Boolean reasoning
+- Loops and pattern-based problems
+- Functions and problem decomposition
+- Arrays, strings, and vectors
+- Structures, enumerations, and data modeling
+- File handling and error management
+- Object-oriented programming
+- Searching, sorting, and algorithmic complexity
+- Pointers, references, and dynamic memory
+- Linked lists, stacks, queues, trees, and graphs
+- Independent projects and more systematic testing
+
+## 🚀 What's Next?
+
+The next stage is to move beyond simple sequential calculations and develop stronger control flow, reusable functions, and structured problem-solving techniques.
+
+The longer-term goal is to apply these foundations to independent C++ projects, including **SmartSpend**, a console-based expense tracker that can later grow to support file persistence, summaries, validation, and a graphical interface.
+
+## 👨‍💻 About This Journey
+
+This repository documents my progress in learning C++ through independent implementation, debugging, testing, and continuous improvement.
+
+My focus is to understand not only how to write code, but also why an algorithm works, how data changes during execution, and how to build programs that are correct, readable, and maintainable.
+
+**Learning principle:** Understand the problem, trace the data, design the algorithm, implement the solution, and test it before moving forward.
+
+---
+
+<p align="center">
+  <strong>One problem at a time. One concept at a time. Consistent progress.</strong>
+</p>
